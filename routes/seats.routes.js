@@ -26,7 +26,10 @@ router.post('/', (req, res) => {
     if (!validation.valid) {
         return res.status(400).json({ message: validation.message });
     }
-
+    const seatTaken = db.some(item => item.day === req.body.day && item.seat === req.body.seat);
+    if(seatTaken){
+        return res.status(409).json({message: 'This seat is already taken...'})
+    }
     const newSeat = {
         id: uuidv4(),
         day: req.body.day,
