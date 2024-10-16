@@ -14,6 +14,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.engine('.hbs', hbs());
 app.set('view engine', '.hbs');
+app.use(express.static(path.join(__dirname, '/client/build')));
 
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.urlencoded({ extended: false }));
@@ -23,10 +24,14 @@ app.use('/api/testimonials', testimonialsRoutes);
 app.use('/api/concerts', concertsRoutes);
 app.use('/api/seats', seatsRoutes);
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/client/build/index.html'));
+  });
+
 app.use((req, res) => {
     res.status(404).json({ message: 'Not found...' });
 });
 
-app.listen(8000, () => {
+app.listen(process.env.PORT || 8000, () => {
     console.log('Server is running on port: 8000');
-});
+  });
