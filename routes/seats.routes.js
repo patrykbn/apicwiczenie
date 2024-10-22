@@ -38,6 +38,8 @@ router.post('/', (req, res) => {
         email: req.body.email,
     };
     db.push(newSeat);
+    req.io.emit('seatsUpdated', db);
+
     res.status(201).json({ message: 'Seat created successfully', data: newSeat });
 });
 
