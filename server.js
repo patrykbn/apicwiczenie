@@ -30,7 +30,7 @@ io.on('connection', (socket) => {
   });
 });
 
-mongoose.connect('mongodb://0.0.0.0:27017/NewWaveDB', {
+mongoose.connect('mongodb+srv://patrykbn1997:07041997@newwavedb.g9ihp.mongodb.net/NewWaveDB?retryWrites=true&w=majority&appName=NewWaveDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
